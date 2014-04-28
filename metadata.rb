@@ -8,3 +8,4 @@ description      'Installs/configures Longshoreman'
 long_description 'Installs/configures Longshoreman'
 version          '0.1.0'
 
+depends          'docker', '~> 0.34'
