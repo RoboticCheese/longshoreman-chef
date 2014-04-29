@@ -19,3 +19,11 @@
 #
 
 include_recipe 'docker'
+include_recipe 'nginx'
+
+%w(docker nginx).each do |s|
+  service s do
+    supports status: true, restart: true
+    action [:enable, :start]
+  end
+end
