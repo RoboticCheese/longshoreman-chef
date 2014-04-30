@@ -3,8 +3,8 @@
 require 'spec_helper'
 
 describe 'longshoreman::default' do
-  let(:includes) { %w(docker nginx) }
-  let(:services) { %w(docker nginx) }
+  let(:includes) { %w(docker) }
+  let(:services) { %w(docker) }
   let(:runner) { ChefSpec::Runner.new }
   let(:chef_run) { runner.converge(described_recipe) }
 

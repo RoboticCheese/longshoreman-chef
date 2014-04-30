@@ -8,9 +8,22 @@ I want faster tests! But I also want to host as little of my own build
 environment as possible!
 
 `kitchen-docker` and `kitchen-docker-api` are awesome, but Docker on its own
-relies on an unencrypted API connection. What if an Nginx proxy with HTTPS +
-auth could sit in front of Docker and Docker used a caching proxy during
-builds?
+relies on an unencrypted API connection. What if a proxy with HTTPS + auth
+could sit in front of Docker and Docker used a caching proxy during builds?
+
+Components
+----------
+* Docker - The container manager itself
+* Reverse proxy(?)
+
+FAQ
+---
+***Why not use Nginx for the proxy?***
+
+Nginx is awesome, but apparently its buffering (even when ostensibly disabled)
+[does not play well](https://gist.github.com/RoboticCheese/11389800) with
+applications that use chunked transfer encoding in their HTTP responses, and
+debugging it was eating way too much time.
 
 License & Authors
 -----------------
