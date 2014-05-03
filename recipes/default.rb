@@ -19,11 +19,9 @@
 #
 
 include_recipe 'docker'
-include_recipe 'nginx'
+include_recipe "#{cookbook_name}::proxy"
 
-%w(docker nginx).each do |s|
-  service s do
-    supports status: true, restart: true
-    action [:enable, :start]
-  end
+service 'docker' do
+  supports status: true, restart: true
+  action [:enable, :start]
 end

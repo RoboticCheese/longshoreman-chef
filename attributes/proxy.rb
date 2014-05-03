@@ -1,7 +1,7 @@
 # Encoding: UTF-8
 #
 # Cookbook Name:: longshoreman
-# Attributes:: default
+# Attributes:: proxy
 #
 # Copyright 2014, Jonathan Hartman
 #
@@ -18,3 +18,4 @@
 # limitations under the License.
 #
 
+default['nginx']['repo_source'] = 'nginx'

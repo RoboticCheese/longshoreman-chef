@@ -1,7 +1,7 @@
 # Encoding: UTF-8
 #
 # Cookbook Name:: longshoreman
-# Attributes:: default
+# Recipe:: proxy
 #
 # Copyright 2014, Jonathan Hartman
 #
@@ -18,3 +18,9 @@
 # limitations under the License.
 #
 
+include_recipe 'nginx'
+
+service 'nginx' do
+  supports status: true, restart: true
+  action [:enable, :start]
+end
