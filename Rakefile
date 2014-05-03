@@ -43,5 +43,5 @@ task everything_but_the_kitchen: [
 ]
 
 task default: [
-  :everything_but_the_kitchen, 'kitchen:all'
+  :everything_but_the_kitchen #, 'kitchen:all'
 ]
