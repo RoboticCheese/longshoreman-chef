@@ -18,4 +18,8 @@ describe 'longshoreman::default' do
       expect(chef_run).to enable_service(s)
     end
   end
+
+  it 'uses the Nginx repo for a current version of Nginx' do
+    expect(chef_run.node['nginx']['repo_source']).to eq('nginx')
+  end
 end
