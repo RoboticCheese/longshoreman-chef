@@ -17,5 +17,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+#
 
 default['nginx']['repo_source'] = 'nginx'
+
+default['longshoreman']['proxy_listen_port'] = 80

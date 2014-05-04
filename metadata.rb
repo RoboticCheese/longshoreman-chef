@@ -10,3 +10,4 @@ version          '0.1.0'
 
 depends          'docker', '~> 0.34'
 depends          'nginx', '~> 2.6'
+depends          'application_nginx', '~> 2.0'

@@ -4,6 +4,8 @@ require 'chef'
 require 'chefspec'
 require 'tmpdir'
 require 'fileutils'
+require 'support/resources/nginx_load_balancer'
+require 'support/matchers/nginx_load_balancer'
 
 RSpec.configure do |c|
   c.color_enabled = true

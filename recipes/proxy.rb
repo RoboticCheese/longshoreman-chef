@@ -20,6 +20,17 @@
 
 include_recipe 'nginx'
 
+if node['docker']['host'].is_a?(Array)
+  socket = node['docker']['host'][0]
+else
+  socket = node['docker']['host']
+end
+nginx_load_balancer 'longshoreman' do
+  port node['longshoreman']['proxy_listen_port']
+  hosts %w(127.0.0.1)
+  application_socket socket
+end
+
 service 'nginx' do
   supports status: true, restart: true
   action [:enable, :start]
