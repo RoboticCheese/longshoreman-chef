@@ -12,9 +12,9 @@ guard :rspec, all_on_start: true, notification: false do
   watch(/^resources\/(.+)\.rb/)
 end
 
-guard :foodcritic, cookbook_paths: '.', cli: '-t ~FC023 -f any' do
-  watch(/^.*\.rb$/)
-end
+# guard :foodcritic, cookbook_paths: '.', cli: '-t ~FC023 -f any' do
+#   watch(/^.*\.rb$/)
+# end
 
 # guard :kitchen do
 #   watch(/test\/.+/)
