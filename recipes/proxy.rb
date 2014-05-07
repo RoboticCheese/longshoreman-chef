@@ -18,20 +18,12 @@
 # limitations under the License.
 #
 
-include_recipe 'nginx'
+service 'nginx'
+include_recipe 'nginx::commons'
 
-if node['docker']['host'].is_a?(Array)
-  socket = node['docker']['host'][0]
-else
-  socket = node['docker']['host']
-end
-nginx_load_balancer 'longshoreman' do
-  port node['longshoreman']['proxy_listen_port']
-  hosts %w(127.0.0.1)
-  application_socket socket
-end
-
-service 'nginx' do
-  supports status: true, restart: true
-  action [:enable, :start]
+docker_image 'dockerfile/nginx'
+docker_container 'dockerfile/nginx' do
+  port '80:80'
+  volume "#{node['nginx']['dir']}:/etc/nginx"
+  detach true
 end
