@@ -12,7 +12,7 @@ require 'kitchen/rake_tasks'
 Cane::RakeTask.new
 
 Rubocop::RakeTask.new do |task|
-  task.patterns = %w{**/*.rb}
+  task.patterns = %w(**/*.rb)
 end
 
 desc 'Display LOC stats'
@@ -30,7 +30,7 @@ task :cookbook_test do
 end
 
 FoodCritic::Rake::LintTask.new do |f|
-  f.options = { fail_tags: %w{any} }
+  f.options = { fail_tags: %w(any) }
 end
 
 RSpec::Core::RakeTask.new(:spec)
@@ -43,5 +43,5 @@ task everything_but_the_kitchen: [
 ]
 
 task default: [
-  :everything_but_the_kitchen #, 'kitchen:all'
+  :everything_but_the_kitchen # , 'kitchen:all'
 ]
