@@ -1,7 +1,7 @@
 # Encoding: UTF-8
 #
 # Cookbook Name:: longshoreman
-# Recipe:: proxy
+# Recipe:: containers
 #
 # Copyright 2014, Jonathan Hartman
 #
@@ -17,9 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-service 'nginx'
-include_recipe 'nginx::commons'
 
 docker_image 'dockerfile/nginx'
 docker_container 'dockerfile/nginx' do

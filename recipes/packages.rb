@@ -1,7 +1,7 @@
 # Encoding: UTF-8
 #
 # Cookbook Name:: longshoreman
-# Attributes:: default
+# Recipe:: packages
 #
 # Copyright 2014, Jonathan Hartman
 #
@@ -18,4 +18,4 @@
 # limitations under the License.
 #
 
-default['longshoreman']['install_method'] = 'containers'
+include_recipe 'nginx'

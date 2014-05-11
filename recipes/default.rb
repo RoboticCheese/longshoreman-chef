@@ -19,9 +19,17 @@
 #
 
 include_recipe 'docker'
-include_recipe "#{cookbook_name}::proxy"
-
 service 'docker' do
   supports status: true, restart: true
   action [:enable, :start]
+end
+
+case node['longshoreman']['install_method']
+when 'containers'
+  include_recipe "#{cookbook_name}::containers"
+when 'packages'
+  include_recipe "#{cookbook_name}::packages"
+else
+  fail(Chef::Exceptions::UnsupportedAction,
+       "#{node['longshoreman']['install_method']} is not a valid install type")
 end
