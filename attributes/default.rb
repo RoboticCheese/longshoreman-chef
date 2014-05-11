@@ -18,4 +18,10 @@
 # limitations under the License.
 #
 
+default['longshoreman']['proxy_listen_port'] = 80
 default['longshoreman']['install_method'] = 'containers'
+
+default['nginx']['repo_source'] = 'nginx'
+if node['longshoreman']['install_method'] == 'containers'
+  default['nginx']['dir'] = '/opt/longshoreman/nginx'
+end
