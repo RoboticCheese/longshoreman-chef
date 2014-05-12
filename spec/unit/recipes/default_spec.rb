@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 describe 'longshoreman::default' do
+  let(:includes) { %w(docker longshoreman::proxy) }
   let(:install_method) { nil }
   let(:runner) do
     ChefSpec::Runner.new do |node|
@@ -14,8 +15,8 @@ describe 'longshoreman::default' do
   let(:chef_run) { runner.converge(described_recipe) }
 
   shared_examples_for 'any node' do
-    it 'includes the docker cookbook' do
-      expect(chef_run).to include_recipe('docker')
+    it 'includes the required recipes' do
+      includes.each { |r| expect(chef_run).to include_recipe(r) }
     end
 
     it 'enables and starts the docker service' do

@@ -1,7 +1,7 @@
 # Encoding: UTF-8
 #
 # Cookbook Name:: longshoreman
-# Recipe:: default
+# Recipe:: proxy
 #
 # Copyright 2014, Jonathan Hartman
 #
@@ -18,19 +18,9 @@
 # limitations under the License.
 #
 
-include_recipe 'docker'
-service 'docker' do
-  supports status: true, restart: true
-  action [:enable, :start]
-end
+service 'nginx'
 
-case node['longshoreman']['install_method']
-when 'containers'
-  include_recipe "#{cookbook_name}::containers"
-when 'packages'
-  include_recipe "#{cookbook_name}::packages"
-else
-  fail(Chef::Exceptions::UnsupportedAction,
-       "#{node['longshoreman']['install_method']} is not a valid install type")
+template File.join(node['nginx']['dir'], 'sites_enabled', 'longshoreman') do
+  source 'nginx/longshoreman.erb'
+  notifies :reload, 'service[nginx]'
 end
-include_recipe "#{cookbook_name}::proxy"
