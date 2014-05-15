@@ -19,6 +19,7 @@ group :development, :test do
   gem 'serverspec'
   gem 'fauxhai'
   gem 'test-kitchen'
+  gem 'kitchen-digitalocean'
   gem 'kitchen-vagrant'
   gem 'vagrant-wrapper'
   gem 'guard-kitchen'
