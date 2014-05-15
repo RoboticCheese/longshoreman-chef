@@ -20,7 +20,7 @@ class Chef
       end
 
       def volume(arg = nil)
-        set_or_return(:volume, arg, kind_of: String)
+        set_or_return(:volume, arg, kind_of: [String, Array])
       end
 
       def detach(arg = nil)

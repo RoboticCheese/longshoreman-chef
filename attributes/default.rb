@@ -24,4 +24,5 @@ default['longshoreman']['install_method'] = 'containers'
 default['nginx']['repo_source'] = 'nginx'
 if node['longshoreman']['install_method'] == 'containers'
   default['nginx']['dir'] = '/opt/longshoreman/nginx'
+  default['nginx']['log_dir'] = '/var/log/longshoreman/nginx'
 end

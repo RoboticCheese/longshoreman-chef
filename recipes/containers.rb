@@ -17,14 +17,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-directory File.join(node['nginx']['dir'], 'sites-enabled') do
-  recursive true
+[
+  File.join(node['nginx']['dir'], 'sites-enabled'),
+  node['nginx']['log_dir']
+].each do |d|
+  directory d do
+    recursive true
+  end
 end
 
 docker_image 'dockerfile/nginx'
 docker_container 'dockerfile/nginx' do
   port '80:80'
-  volume "#{node['nginx']['dir']}/sites-enabled:/etc/nginx/sites-enabled"
+  volume [
+    "#{node['nginx']['dir']}/sites-enabled:/etc/nginx/sites-enabled",
+    "#{node['nginx']['log_dir']}:/var/log/nginx"
+  ]
   detach true
 end
