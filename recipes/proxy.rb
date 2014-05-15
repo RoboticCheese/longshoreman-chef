@@ -20,7 +20,7 @@
 
 service 'nginx'
 
-template File.join(node['nginx']['dir'], 'sites_enabled', 'longshoreman') do
+template File.join(node['nginx']['dir'], 'sites-enabled', 'longshoreman') do
   source 'nginx/longshoreman.erb'
   notifies :reload, 'service[nginx]'
 end

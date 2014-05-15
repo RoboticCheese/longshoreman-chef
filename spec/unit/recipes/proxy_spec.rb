@@ -19,7 +19,7 @@ describe 'longshoreman::proxy' do
 
   shared_examples_for 'any node' do
     it 'drops off an Nginx template' do
-      f = File.join(nginx_dir, 'sites_enabled', 'longshoreman')
+      f = File.join(nginx_dir, 'sites-enabled', 'longshoreman')
       expect(chef_run).to create_template(f)
       expect(chef_run).to render_file(f).with_content(/^  listen 80;$/)
         .with_content(%r{^    proxy_pass http://unix:/var/run/docker.sock;$})
@@ -27,7 +27,7 @@ describe 'longshoreman::proxy' do
 
     it 'sends a reload notification to Nginx' do
       expect(chef_run).to_not start_service('nginx')
-      template = chef_run.template(File.join(nginx_dir, 'sites_enabled',
+      template = chef_run.template(File.join(nginx_dir, 'sites-enabled',
                                              'longshoreman'))
       expect(template).to notify('service[nginx]').to(:reload)
     end

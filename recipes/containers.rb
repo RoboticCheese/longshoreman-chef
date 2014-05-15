@@ -18,13 +18,13 @@
 # limitations under the License.
 #
 
-directory File.join(node['nginx']['dir'], 'sites_enabled') do
+directory File.join(node['nginx']['dir'], 'sites-enabled') do
   recursive true
 end
 
 docker_image 'dockerfile/nginx'
 docker_container 'dockerfile/nginx' do
   port '80:80'
-  volume "#{node['nginx']['dir']}/sites_enabled:/etc/nginx/sites_enabled"
+  volume "#{node['nginx']['dir']}/sites-enabled:/etc/nginx/sites-enabled"
   detach true
 end

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'longshoreman::containers' do
-  let(:outside_dir) { '/opt/longshoreman/nginx/sites_enabled' }
+  let(:outside_dir) { '/opt/longshoreman/nginx/sites-enabled' }
   let(:runner) do
     ChefSpec::Runner.new do |node|
       node.set['docker']['host'] = 'unix:///var/run/docker.sock'
@@ -24,7 +24,7 @@ describe 'longshoreman::containers' do
   it 'starts a container with the Nginx Docker image' do
     expect(chef_run).to create_docker_container('dockerfile/nginx').with(
       port: '80:80',
-      volume: "#{outside_dir}:/etc/nginx/sites_enabled",
+      volume: "#{outside_dir}:/etc/nginx/sites-enabled",
       detach: true
     )
   end
