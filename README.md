@@ -18,12 +18,24 @@ Components
 
 FAQ
 ---
-***Why not use Nginx for the proxy?***
+***What's up with Nginx?***
 
 Nginx is awesome, but apparently its buffering (even when ostensibly disabled)
-[does not play well](https://gist.github.com/RoboticCheese/11389800) with
-applications that use chunked transfer encoding in their HTTP responses, and
-debugging it was eating way too much time.
+[may not play well](https://gist.github.com/RoboticCheese/11389800) with
+applications that use chunked transfer encoding in their HTTP responses.
+Debugging it ate up time to the point of my nearly abandoning it before the
+issue vanished and I haven't been able to reproduce it since.
+
+To Do
+-----
+* TODO: Proxying to a Unix socket for package-based installs and a TCP socket
+for container-based installs is ugly and inconsistent. Should this be unified?
+* TODO: Look into other possible reverse proxies, especially if the buffering
+issue resurfaces
+    * Pound?
+    * HAProxy?
+    * Squid?
+    * Vulcan - No HTTPS or auth support
 
 License & Authors
 -----------------
