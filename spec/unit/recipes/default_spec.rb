@@ -19,6 +19,12 @@ describe 'longshoreman::default' do
       includes.each { |r| expect(chef_run).to include_recipe(r) }
     end
 
+    it 'configures Docker to bind to Unix AND TCP sockets' do
+      expect(chef_run.node['docker']['host']).to eq(
+        %w(unix:///var/run/docker.sock tcp://127.0.0.1:4243)
+      )
+    end
+
     it 'enables and starts the docker service' do
       expect(chef_run).to enable_service('docker')
       expect(chef_run).to start_service('docker')

@@ -22,5 +22,8 @@ service 'nginx'
 
 template File.join(node['nginx']['dir'], 'sites-enabled', 'longshoreman') do
   source 'nginx/longshoreman.erb'
+  variables(
+    proxy_destination: node['longshoreman']['docker_socket']
+  )
   notifies :reload, 'service[nginx]'
 end

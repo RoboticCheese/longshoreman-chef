@@ -21,8 +21,19 @@
 default['longshoreman']['proxy_listen_port'] = 80
 default['longshoreman']['install_method'] = 'containers'
 
+default['docker']['host'] = %w(
+  unix:///var/run/docker.sock tcp://127.0.0.1:4243
+)
+
 default['nginx']['repo_source'] = 'nginx'
 if node['longshoreman']['install_method'] == 'containers'
+  first_tcp_socket = Array(node['docker']['host'].dup).keep_if do |s|
+    s.start_with?('tcp://', 'http://', 'https://')
+  end.first
+  default['longshoreman']['docker_socket'] = first_tcp_socket
+
   default['nginx']['dir'] = '/opt/longshoreman/nginx'
   default['nginx']['log_dir'] = '/var/log/longshoreman/nginx'
+else
+  default['longshoreman']['docker_socket'] = node['docker']['host'][0]
 end

@@ -5,13 +5,20 @@ require 'spec_helper'
 describe 'longshoreman::proxy' do
   let(:install_method) { nil }
   let(:nginx_dir) { '/opt/longshoreman/nginx' }
+  let(:conf_file) { File.join(nginx_dir, 'sites-enabled', 'longshoreman') }
+  let(:expected_socket) do
+    case install_method
+    when 'containers', nil
+      'tcp://127.0.0.1:4243'
+    when 'packages'
+      'unix:///var/run/docker.sock'
+    end
+  end
   let(:runner) do
     ChefSpec::Runner.new do |node|
       if install_method
         node.set['longshoreman']['install_method'] = install_method
-        if install_method == 'packages'
-          node.set['nginx']['dir'] = '/etc/nginx'
-        end
+        node.set['nginx']['dir'] = '/etc/nginx' if install_method == 'packages'
       end
     end
   end
@@ -19,16 +26,17 @@ describe 'longshoreman::proxy' do
 
   shared_examples_for 'any node' do
     it 'drops off an Nginx template' do
-      f = File.join(nginx_dir, 'sites-enabled', 'longshoreman')
-      expect(chef_run).to create_template(f)
-      expect(chef_run).to render_file(f).with_content(/^  listen 80;$/)
-        .with_content(%r{^    proxy_pass http://unix:/var/run/docker.sock;$})
+      expect(chef_run).to create_template(conf_file)
+    end
+
+    it 'proxies Nginx to the expected Docker socket' do
+      expect(chef_run).to render_file(conf_file).with_content(/^  listen 80;$/)
+        .with_content(/^    proxy_pass #{expected_socket};$/)
     end
 
     it 'sends a reload notification to Nginx' do
       expect(chef_run).to_not start_service('nginx')
-      template = chef_run.template(File.join(nginx_dir, 'sites-enabled',
-                                             'longshoreman'))
+      template = chef_run.template(conf_file)
       expect(template).to notify('service[nginx]').to(:reload)
     end
   end
