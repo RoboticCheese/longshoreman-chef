@@ -28,6 +28,8 @@ issue vanished and I haven't been able to reproduce it since.
 
 To Do
 -----
+* TODO: Wait a minute... Docker has
+[HTTPS](http://docs.docker.io/examples/https/) now?! Is that new?
 * TODO: Networking from the native Docker daemon to the Nginx container isn't
 working
 * TODO: Proxying to a Unix socket for package-based installs and a TCP socket
