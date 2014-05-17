@@ -28,6 +28,8 @@ issue vanished and I haven't been able to reproduce it since.
 
 To Do
 -----
+* TODO: Networking from the native Docker daemon to the Nginx container isn't
+working
 * TODO: Proxying to a Unix socket for package-based installs and a TCP socket
 for container-based installs is ugly and inconsistent. Should this be unified?
 * TODO: Look into other possible reverse proxies, especially if the buffering
