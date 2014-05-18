@@ -21,9 +21,26 @@
 service 'nginx'
 
 template File.join(node['nginx']['dir'], 'sites-enabled', 'longshoreman') do
+  case node['longshoreman']['install_method']
+  when 'containers'
+    require 'ipaddr'
+
+    docker_interface = node['network']['interfaces']['docker0']
+    ip = docker_interface['addresses'].keys.keep_if do |k|
+      IPAddr.new(k).ipv4?
+    end.first
+    docker_host = Array(node['docker']['host'].dup).keep_if do |h|
+      h.start_with?('tcp://', 'http://', 'https://')
+    end.first.split(':')
+    proto, port = [docker_host.first, docker_host.last]
+    docker_socket = "#{proto}://#{ip}:#{port}"
+  else
+    docker_socket = node['docker']['host'][0]
+  end
+
   source 'nginx/longshoreman.erb'
   variables(
-    proxy_destination: node['longshoreman']['docker_socket']
+    proxy_destination: docker_socket
   )
   notifies :reload, 'service[nginx]'
 end
