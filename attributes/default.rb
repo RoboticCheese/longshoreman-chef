@@ -27,10 +27,17 @@ default['docker']['host'] = %w(
 
 default['nginx']['repo_source'] = 'nginx'
 if node['longshoreman']['install_method'] == 'containers'
-  first_tcp_socket = Array(node['docker']['host'].dup).keep_if do |s|
-    s.start_with?('tcp://', 'http://', 'https://')
+  require 'ipaddr'
+
+  docker_interface = node['network']['interfaces']['docker0']
+  ip = docker_interface['addresses'].keys.keep_if do |k|
+    IPAddr.new(k).ipv4?
   end.first
-  default['longshoreman']['docker_socket'] = first_tcp_socket
+  docker_host = Array(node['docker']['host'].dup).keep_if do |s|
+    s.start_with?('tcp://', 'http://', 'https://')
+  end.first.split(':')
+  proto, port = [docker_host.first, docker_host.last]
+  default['longshoreman']['docker_socket'] = "#{proto}://#{ip}:#{port}"
 
   default['nginx']['dir'] = '/opt/longshoreman/nginx'
   default['nginx']['log_dir'] = '/var/log/longshoreman/nginx'

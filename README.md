@@ -30,8 +30,6 @@ To Do
 -----
 * TODO: Wait a minute... Docker has
 [HTTPS](http://docs.docker.io/examples/https/) now?! Is that new?
-* TODO: Networking from the native Docker daemon to the Nginx container isn't
-working
 * TODO: Proxying to a Unix socket for package-based installs and a TCP socket
 for container-based installs is ugly and inconsistent. Should this be unified?
 * TODO: Look into other possible reverse proxies, especially if the buffering

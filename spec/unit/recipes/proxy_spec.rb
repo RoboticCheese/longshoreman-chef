@@ -6,16 +6,20 @@ describe 'longshoreman::proxy' do
   let(:install_method) { nil }
   let(:nginx_dir) { '/opt/longshoreman/nginx' }
   let(:conf_file) { File.join(nginx_dir, 'sites-enabled', 'longshoreman') }
+  let(:docker_ip) { '1.2.3.4' }
   let(:expected_socket) do
     case install_method
     when 'containers', nil
-      'tcp://127.0.0.1:4243'
+      "tcp://#{docker_ip}:4243"
     when 'packages'
       'unix:///var/run/docker.sock'
     end
   end
   let(:runner) do
     ChefSpec::Runner.new do |node|
+      node.automatic['network']['interfaces']['docker0'] = {
+        'addresses' => { docker_ip => 'some_stuff' }
+      }
       if install_method
         node.set['longshoreman']['install_method'] = install_method
         node.set['nginx']['dir'] = '/etc/nginx' if install_method == 'packages'
