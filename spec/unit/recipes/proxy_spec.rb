@@ -18,7 +18,7 @@ describe 'longshoreman::proxy' do
   let(:runner) do
     ChefSpec::Runner.new do |node|
       node.automatic['network']['interfaces']['docker0'] = {
-        'addresses' => { docker_ip => 'some_stuff' }
+        'addresses' => { docker_ip => { 'family' => 'inet' } }
       }
       if install_method
         node.set['longshoreman']['install_method'] = install_method

@@ -26,8 +26,8 @@ template File.join(node['nginx']['dir'], 'sites-enabled', 'longshoreman') do
     require 'ipaddr'
 
     docker_interface = node['network']['interfaces']['docker0']
-    ip = docker_interface['addresses'].keys.keep_if do |k|
-      IPAddr.new(k).ipv4?
+    ip = docker_interface['addresses'].map do |k, v|
+      k if v['family'] == 'inet'
     end.first
     docker_host = Array(node['docker']['host'].dup).keep_if do |h|
       h.start_with?('tcp://', 'http://', 'https://')
