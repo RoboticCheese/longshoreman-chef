@@ -31,6 +31,11 @@ ensure
   run_context.resource_collection = original_resource_collection
 end
 
+ohai 'reload' do
+  plugin 'network'
+  action :reload
+end
+
 service 'docker' do
   supports status: true, restart: true
   action [:enable, :start]
