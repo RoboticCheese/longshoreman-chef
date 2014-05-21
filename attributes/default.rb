@@ -18,15 +18,3 @@
 # limitations under the License.
 #
 
-default['longshoreman']['proxy_listen_port'] = 80
-default['longshoreman']['install_method'] = 'containers'
-
-default['docker']['host'] = %w(
-  unix:///var/run/docker.sock tcp://127.0.0.1:4243
-)
-
-default['nginx']['repo_source'] = 'nginx'
-if node['longshoreman']['install_method'] == 'containers'
-  default['nginx']['dir'] = '/opt/longshoreman/nginx'
-  default['nginx']['log_dir'] = '/var/log/longshoreman/nginx'
-end
