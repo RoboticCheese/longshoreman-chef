@@ -7,19 +7,19 @@ Goal
 I want faster tests! But I also want to host as little of my own build
 environment as possible!
 
-`kitchen-docker` and `kitchen-docker-api` are awesome, but Docker on its own
-relies on an unencrypted API connection. What if a proxy with HTTPS + auth
-could sit in front of Docker and Docker used a caching proxy during builds?
+`kitchen-docker` and `kitchen-docker-api` are awesome, but Docker by default
+relies on an unencrypted API connection. What if we enabled TLS verification
+with a custom cert for security between the client and server? What if the
+server also ran through a caching proxy to speed up builds?
 
 Components
 ----------
-* Docker - The container manager itself
-* Caching layer
+* Docker - The container manager itself, with TLS verification enabled
+* Caching layer(?)
 
 To Do
 -----
-* TODO: Wait a minute... Docker has
-[HTTPS](http://docs.docker.io/examples/https/) now?! Is that new?
+* TODO: Figure out what to use for the caching proxy
 
 License & Authors
 -----------------

@@ -18,3 +18,15 @@
 # limitations under the License.
 #
 
+default['longshoreman']['tls_source'] = 'bag'
+
+default['docker']['tls'] = true
+default['docker']['tlsverify'] = true
+
+# Where should TLS info come from?
+#   * A chef-vault-ed data bag?
+#   * A local data bag?
+#   * Attributes set during the build by env. variables?
+default['docker']['tlscacert'] = nil
+default['docker']['tlscert'] = nil
+default['docker']['tlskey'] = nil
