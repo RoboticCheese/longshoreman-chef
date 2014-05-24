@@ -18,20 +18,4 @@
 # limitations under the License.
 #
 
-original_resource_collection = run_context.resource_collection
-begin
-  run_context.resource_collection = ResourceCollection.new
-  include_recipe('docker')
-  Chef::Runner.new(run_context).converge
-  run_context.resource_collection.each do |res|
-    res.action(:nothing)
-    original_resource_collection << res
-  end
-ensure
-  run_context.resource_collection = original_resource_collection
-end
-
-service 'docker' do
-  supports status: true, restart: true
-  action [:enable, :start]
-end
+include_recipe 'docker'

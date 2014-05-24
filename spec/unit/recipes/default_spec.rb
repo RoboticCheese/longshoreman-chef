@@ -18,9 +18,4 @@ describe 'longshoreman::default' do
       expect(a).to eq(true)
     end
   end
-
-  it 'enables and starts the docker service' do
-    expect(chef_run).to enable_service('docker')
-    expect(chef_run).to start_service('docker')
-  end
 end
