@@ -18,4 +18,31 @@
 # limitations under the License.
 #
 
+unless node['longshoreman']['tlscacert'] && node['longshoreman']['tlscert'] &&
+    node['longshoreman']['tlskey']
+  fail(Chef::Exceptions::ConfigurationError, 'All TLS attributes ' \
+       "MUST be provided:\nnode['longshoreman']['tlscacert']\n" \
+       "node['longshoreman']['tlscert']\nnode['longshoreman']['tlskey']\n")
+end
+
+[
+  File.dirname(node['docker']['tlscacert']),
+  File.dirname(node['docker']['tlscert']),
+  File.dirname(node['docker']['tlskey'])
+].uniq.each do |d|
+  directory d do
+    recursive true
+  end
+end
+
+{
+  node['docker']['tlscacert'] => node['longshoreman']['tlscacert'],
+  node['docker']['tlscert'] => node['longshoreman']['tlscert'],
+  node['docker']['tlskey'] => node['longshoreman']['tlskey']
+}.each do |k, v|
+  file k do
+    content v
+  end
+end
+
 include_recipe 'docker'

@@ -18,15 +18,17 @@
 # limitations under the License.
 #
 
-default['longshoreman']['tls_source'] = 'bag'
+default['longshoreman']['tlscacert'] = nil
+default['longshoreman']['tlscert'] = nil
+default['longshoreman']['tlskey'] = nil
 
+default['docker']['host'] = %w(
+  unix:///var/run/docker.sock
+  0.0.0.0:443
+)
 default['docker']['tls'] = true
 default['docker']['tlsverify'] = true
 
-# Where should TLS info come from?
-#   * A chef-vault-ed data bag?
-#   * A local data bag?
-#   * Attributes set during the build by env. variables?
-default['docker']['tlscacert'] = nil
-default['docker']['tlscert'] = nil
-default['docker']['tlskey'] = nil
+default['docker']['tlscacert'] = '/opt/longshoreman/tls/ca.pem'
+default['docker']['tlscert'] = '/opt/longshoreman/tls/cert.pem'
+default['docker']['tlskey'] = '/opt/longshoreman/tls/key.pem'
