@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 describe 'longshoreman::default' do
-  let(:includes) { %w(docker) }
+  let(:includes) { %w(polipo docker) }
   let(:attributes) { {} }
   let(:runner) do
     ChefSpec::Runner.new do |node|

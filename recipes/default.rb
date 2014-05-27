@@ -45,4 +45,5 @@ end
   end
 end
 
+include_recipe 'polipo'
 include_recipe 'docker'
