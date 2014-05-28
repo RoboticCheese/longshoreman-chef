@@ -26,9 +26,14 @@ default['docker']['host'] = %w(
   unix:///var/run/docker.sock
   0.0.0.0:443
 )
+default['docker']['http_proxy'] = 'http://localhost:8123'
 default['docker']['tls'] = true
 default['docker']['tlsverify'] = true
 
 default['docker']['tlscacert'] = '/opt/longshoreman/tls/ca.pem'
 default['docker']['tlscert'] = '/opt/longshoreman/tls/cert.pem'
 default['docker']['tlskey'] = '/opt/longshoreman/tls/key.pem'
+
+# TODO: Can be removed once https://github.com/hw-cookbooks/polipo/pull/1 is
+# merged or project is otherwise fixed for 14.04
+default['polipo']['config']['log_file'] = '/var/log/polipo/polipo.log'
