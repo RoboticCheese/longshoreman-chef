@@ -15,11 +15,7 @@ server also ran through a caching proxy to speed up builds?
 Components
 ----------
 * Docker - The container manager itself, with TLS verification enabled
-* Caching layer(?)
-
-To Do
------
-* TODO: Figure out what to use for the caching proxy
+* Polipo - An HTTP caching proxy
 
 License & Authors
 -----------------

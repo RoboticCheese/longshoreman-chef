@@ -5,8 +5,12 @@ require 'json'
 require 'net/http'
 
 describe 'Longshoreman-related ports' do
-  it 'is listening on port 443' do
+  it 'is listening on port 443 for Docker' do
     expect(port(443)).to be_listening
+  end
+
+  it 'is listening on port 8123 for Polipo' do
+    expect(port(8123)).to be_listening
   end
 
   it 'is returning valid JSON from the Docker API over port 443' do
